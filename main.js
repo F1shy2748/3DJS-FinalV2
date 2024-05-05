@@ -1,6 +1,5 @@
 import './style.css'
 import * as THREE from 'three'
-import { addBoilerPlateMesh, addStandardMesh } from './addMeshes'
 import { addLight, addLightBack } from './addLights'
 import Model from './Model'
 import Clickable from './Clickable'
@@ -86,6 +85,7 @@ function raycast() {
 		const intersects = raycaster.intersectObjects(interactables, true)
 		for (let i = 0; i < intersects.length; i++) {
 			const object = intersects[0].object.parent
+			unreveal(object.userData.name);
 			if (object.userData.name === activeScene.name) {
 				for(let i = 1; i < mixers.length; i++){
 					mixers[0].clipAction(mixers[i]).stop()
@@ -201,11 +201,6 @@ function animate() {
 	 
 
 
-	// meshes.default.scale.x += 0.01
-	for (const mixer of mixers) {
-		//mixer.update(delta);
-		//console.log(mixer)
-	}
 
 	renderer.render(scene, camera)
 	//composer.composer.render();
